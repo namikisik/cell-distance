@@ -10,6 +10,10 @@ class Distance(object):
         self.neigh_prefix = 'NEIGH'
         self.data = []
 
+    def get_output_filename(self):
+        file_parts = os.path.splitext(self.file_name)
+        return os.path.basename(file_parts[0]) + '.csv'
+
     def read_data(self):
         header = []
 
@@ -103,7 +107,7 @@ class Distance(object):
                                  matrix,
                                  '{:^{}}', '{:<{}}', '{:>{}.3f}', '\n', ' | '))
 
-    def print_data(self):
+    def save_data(self):
         i = 0
         max_neigh = 0
         matrix = []
@@ -141,7 +145,11 @@ class Distance(object):
 
         print(self.data)
 
-        with open('data.csv', 'w', newline='') as csvfile:
+        output = self.get_output_filename()
+        if self.debug:
+            print('OUTPUT FILE:', output)
+
+        with open(output, 'w', newline='') as csvfile:
             fieldnames = header
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer.writeheader()
@@ -154,6 +162,6 @@ if __name__ == "__main__":
     distance = Distance('data.txt')
     distance.read_data()
     #distance.print_distance_with_sc(0)
-    distance.print_data()
+    distance.save_data()
 
 
