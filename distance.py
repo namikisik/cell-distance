@@ -30,7 +30,7 @@ class Distance(object):
 
             # check header
             if header != self.header:
-                raise Exception("header line is missing or incorrect")
+                raise Exception('header line is missing or incorrect')
 
             # read data
             for row in reader:
@@ -54,7 +54,7 @@ class Distance(object):
         #a = math.sin(dlat/2) * math.sin(dlat/2) + math.cos(math.radians(lat1)) \
         #    * math.cos(math.radians(lat2)) * math.sin(dlon/2) * math.sin(dlon/2)
         a = math.sin(dlat / 2) ** 2 \
-            + math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) * (math.sin(dlon / 2) ** 2)
+            + math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) * math.sin(dlon / 2) ** 2
         c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
         d = radius * c
 
